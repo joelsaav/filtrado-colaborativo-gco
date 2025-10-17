@@ -1,13 +1,13 @@
 #ifndef RECOMMENDER_SYSTEM_H_
 #define RECOMMENDER_SYSTEM_H_
 
+#include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <algorithm>
 
 class RecommenderSystem {
  public:
@@ -15,6 +15,7 @@ class RecommenderSystem {
                     int predictionType);
 
   const std::vector<std::vector<std::string>>& userItemMatrix() const;
+  const std::vector<std::vector<std::string>>& userItemMatrixCopy() const;
   int metric() const { return metric_; }
   int numNeighbors() const { return numNeighbors_; }
   int predictionType() const { return predictionType_; }
@@ -27,22 +28,18 @@ class RecommenderSystem {
   void Recommend();
 
  private:
-  std::vector<std::vector<std::string>> userItemMatrix_;
-  int metric_;
-  int numNeighbors_;
-  int predictionType_;
-  double minRating_;
-  double maxRating_;
+  std::vector<std::vector<std::string>> userItemMatrix_, userItemMatrixCopy_;
+  int metric_, numNeighbors_, predictionType_;
+  double minRating_, maxRating_;
   std::vector<double> userMean_;
   std::vector<std::vector<double>> similaritiesPerUser_;
   std::vector<std::vector<int>> neighborsPerUser_;
-
-  std::vector<std::pair<int, int>> unknownRatingsPerUser_;
-  std::vector<std::pair<int, int>> unknownRatingsPerItem_;
+  std::vector<std::pair<int, int>> unknownRatingsPerUser_,
+      unknownRatingsPerItem_;
 
   void CalculateUserMean();
   void ChooseNeighbors();
-  
+
   void CalculateSimilarities();
   double PearsonCorrelation(int user1, int user2) const;
   double CosineSimilarity(int user1, int user2) const;
