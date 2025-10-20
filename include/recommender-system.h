@@ -42,7 +42,7 @@ class RecommenderSystem {
 
   void CalculateSimilarities();
   double PearsonCorrelation(int user1, int user2) const;
-  double CosineSimilarity(int user1, int user2) const;
+  double CosineDistance(int user1, int user2) const;
   double EuclideanDistance(int user1, int user2) const;
 
   double PredictRating(int user, int item) const;

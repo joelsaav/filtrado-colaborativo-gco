@@ -12,9 +12,8 @@ void ErrorOutput() {
   std::cerr << "\nUsage: ./recommender-system -mx <matrixFile> -mc "
                "<metric> -nb <numNeighbors> -pd <predictionType>"
             << std::endl;
-  std::cerr
-      << "Try './recommender-system [--help | -h]' for more information."
-      << std::endl;
+  std::cerr << "Try './recommender-system [--help | -h]' for more information."
+            << std::endl;
   exit(1);
 }
 
@@ -42,14 +41,14 @@ void HelpOutput() {
   std::cout << "  -mx <matrixFile>      Path to file containing the user-item "
                "matrix\n";
   std::cout << "  -mc <metric>           Similarity metric (integer):\n"
-               "                          1: Pearson\n"
-               "                          2: Cosine\n"
-               "                          3: Euclidean\n";
+               "                          1: Pearson Correlation\n"
+               "                          2: Cosine Distance\n"
+               "                          3: Euclidean Distance\n";
   std::cout << "  -nb <numNeighbors>    Number of neighbors to consider for "
                "predictions. Must be at least 3.\n";
   std::cout << "  -pd <predictionType>  Type of prediction (integer):\n"
                "                          1: Simple Prediction\n"
-               "                          2: Mean Difference\n";
+               "                          2: Mean Difference Prediction\n";
   std::cout << "\nEXAMPLES\n" << std::endl;
   std::cout << "  ./recommender-system -mx data.txt -mc 1 -nb 5 -pd 2\n";
   std::cout << "\nFor more information, use: ./recommender-system --help\n";

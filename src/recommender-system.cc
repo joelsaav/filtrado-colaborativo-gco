@@ -163,7 +163,7 @@ void RecommenderSystem::CalculateSimilarities() {
           similarity = PearsonCorrelation(i, j);
           break;
         case 2:
-          similarity = CosineSimilarity(i, j);
+          similarity = CosineDistance(i, j);
           break;
         case 3:
           similarity = EuclideanDistance(i, j);
@@ -200,7 +200,7 @@ double RecommenderSystem::PearsonCorrelation(int user1, int user2) const {
   return num / denom;
 }
 
-double RecommenderSystem::CosineSimilarity(int user1, int user2) const {
+double RecommenderSystem::CosineDistance(int user1, int user2) const {
   double num = 0.0;
   double denom1 = 0.0;
   double denom2 = 0.0;
@@ -333,9 +333,52 @@ void RecommenderSystem::CountUnknownRatingsPerItem() {
 
 std::ostream& operator<<(std::ostream& os, const RecommenderSystem& rs) {
   os << "\n\n╔════════════════════════════════════════╗\n";
-  os << "║          SIMILARITIES MATRIX           ║\n";
+  os << "║              INPUT DATA                ║\n";
+  os << "╚════════════════════════════════════════╝\n";
+  os << "Metric: ";
+  switch (rs.metric()) {
+    case 1:
+      os << "Pearson Correlation\n";
+      break;
+    case 2:
+      os << "Cosine Distance\n";
+      break;
+    case 3:
+      os << "Euclidean Distance\n";
+      break;
+    default:
+      break;
+  }
+  os << "Prediction Type: ";
+  switch (rs.predictionType()) {
+    case 1:
+      os << "Simple Prediction\n";
+      break;
+    case 2:
+      os << "Mean Difference Prediction\n";
+      break;
+    default:
+      break;
+  }
+  os << "Number of Neighbors: " << rs.numNeighbors() << "\n";
+
+  os << "\n\n╔════════════════════════════════════════╗\n";
+  os << "║            ORIGINAL MATRIX             ║\n";
   os << "╚════════════════════════════════════════╝\n";
   int user = 0;
+  for (const std::vector<std::string>& row : rs.userItemMatrixCopy()) {
+    os << "User " << user << ": ";
+    for (const std::string& rating : row) {
+      os << rating << " ";
+    }
+    os << "\n";
+    ++user;
+  }
+
+  os << "\n\n╔════════════════════════════════════════╗\n";
+  os << "║          SIMILARITIES MATRIX           ║\n";
+  os << "╚════════════════════════════════════════╝\n";
+  user = 0;
   for (const std::vector<double>& userSimilarities : rs.similaritiesPerUser()) {
     os << "User " << user << ": ";
     for (const double& similarity : userSimilarities) {
@@ -357,19 +400,6 @@ std::ostream& operator<<(std::ostream& os, const RecommenderSystem& rs) {
       if (i < neighbors.size() - 1) os << ", ";
     }
     os << " ]\n";
-    ++user;
-  }
-
-  os << "\n\n╔════════════════════════════════════════╗\n";
-  os << "║            ORIGINAL MATRIX             ║\n";
-  os << "╚════════════════════════════════════════╝\n";
-  user = 0;
-  for (const std::vector<std::string>& row : rs.userItemMatrixCopy()) {
-    os << "User " << user << ": ";
-    for (const std::string& rating : row) {
-      os << rating << " ";
-    }
-    os << "\n";
     ++user;
   }
 
