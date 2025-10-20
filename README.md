@@ -1,8 +1,8 @@
 # Sistemas de recomendación. Métodos de filtrado colaborativo
 ## AUTORES  
 - Joel Saavedra Páez
-- Alejandro
-- Guillermo
+- Alejandro Martín Linares
+- Guillermo Emmanuel González Méndez
 ## DESCRIPCIÓN GENERAL
 Este proyecto implementa un **sistema de recomendación básico** desarrollado en **C++**.  
 El programa recibe una **matriz de puntuaciones(usuario-item), una métrica, un tipo de predicción y un número de vecinos** y predice los ítems no valorados por cada usuario, generando así recomendaciones personalizadas.
