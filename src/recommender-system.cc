@@ -234,11 +234,11 @@ double RecommenderSystem::EuclideanDistance(int user1, int user2) const {
     sum += (x - y) * (x - y);
   }
 
-  double distance = sqrt(sum);
-  if (distance <= 1e-9) {
-    return 1.0;
+  if (sum == 0.0) {
+    return 0.0;
   }
 
+  double distance = std::sqrt(sum);
   return 1.0 / distance;
 }
 
