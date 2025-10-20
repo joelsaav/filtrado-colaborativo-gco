@@ -87,7 +87,11 @@ El archivo de matriz debe seguir el siguiente formato:
 Donde `-` representa valores no puntuados por el usuario.
 
 ## SALIDA DEL PROGRAMA
-El programa genera:
+El programa muestra los siguientes resultados:
 1. **Predicciones**: Puntuaciones predichas para los ítems no valorados por cada usuario
 2. **Matriz de Similitudes**: Matriz que muestra la similitud entre usuarios
-3. Los resultados se muestran en pantalla con formato tabular
+3. **Matriz Resultante**: Matriz completa con puntuaciones calculadas
+4. **Vecinos**: Lista de vecinos elegidos para cada usuario
+5. **Matriz de utilidad original**: Muestra la matriz de puntuaciones original con los valores no puntuados
+6. **Datos de entrada**: Muestra los parámetros utilizados en la ejecución del programa
+7. Los resultados se muestran en pantalla con formato tabular
